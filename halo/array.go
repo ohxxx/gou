@@ -66,4 +66,13 @@ func main() {
 	for _, val := range arr11 {
 		fmt.Printf("%s\n", val)
 	}
+
+	fmt.Println("==================================")
+
+	// go 中数组类型是 值类型，副本不会修改原数组中的值
+	arr12 := [...]string{"hello", "xxx"}
+	copyArr := arr12
+	copyArr[0] = "halo"
+	fmt.Println("arr12 的值是：", arr12)
+	fmt.Println("copyArr 的值是：", copyArr)
 }
