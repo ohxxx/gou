@@ -26,6 +26,14 @@ func main() {
 		fmt.Println("gogogo")
 	}
 
+	// if 声明; 条件 {
+	//	语句...
+	//}
+
+	if score := 88; score >= 60 {
+		fmt.Println("成绩及格")
+	}
+
 	for i := 0; i <= 100; i++ {
 		if i%3 == 0 {
 			fmt.Println(i)
