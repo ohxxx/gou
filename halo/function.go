@@ -59,6 +59,33 @@ func main() {
 	//		方法的首字母为 大写 时，这个方法对于 所有包 都是 Public ，其他包可以随意调用
 	//		方法的首字母为 小写 时，这个方法是 Private ，其他包是无法访问的
 
+	fmt.Println("==================================")
+
+	// 头等函数 （first-class function）
+	// 函数可以作为参数传递给另一个函数，或者作为返回值返回到调用者
+
+	// 赋值给变量
+	haloFunc := func() {
+		fmt.Println("halo xxx")
+	}
+	haloFunc()
+	fmt.Printf("haloFunc 的类型是 %T\n", haloFunc)
+
+	// 作为参数传递给另一个函数
+	haloFunc2 := func(name string) string {
+		return name
+	}
+	halo(haloFunc2)
+
+	// 作为返回值返回到调用者
+	haloFunc3 := halo2()
+	fmt.Println("haloFunc3 = ", haloFunc3("xxx"))
+
+	// 闭包
+	x := 100
+	func() {
+		fmt.Println("x = ", x)
+	}()
 }
 
 func showPersonInfo(name string, age int) (string, error) {
@@ -83,4 +110,14 @@ func showPersonInfo2(name string, age int) (user string, err error) {
 	}
 	user = "姓名：" + name + "，年龄：" + strconv.Itoa(age)
 	return
+}
+
+func halo(show func(name string) string) {
+	fmt.Println("halo", show("xxx"))
+}
+
+func halo2() func(name string) string {
+	return func(name string) string {
+		return "halo " + name
+	}
 }
