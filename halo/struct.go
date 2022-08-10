@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"reflect"
 )
@@ -164,6 +165,58 @@ func main() {
 	s14.addAge(2)
 	s14.showPersonInfo()
 
+	fmt.Println("==================================")
+
+	// Tag 的使用
+	type User struct {
+		Name string `json:"name"`
+		Age  int    `json:"age"`
+		City string `json:"city,omitempty"` // omitempty 忽略空值
+		// omitempty 会忽略 false、0、空指针、空接口、空数组、空切片、空映射、空字符串
+	}
+	u1 := User{Name: "xxx", Age: 19}
+	// 结构体转为 JSON
+	data, err := json.Marshal(u1)
+	if err != nil {
+		panic(err)
+	}
+	fmt.Printf("data = %s\n", data)
+
+	u2 := User{
+		Name: "xxx",
+		Age:  19,
+		City: "shanghai",
+	}
+	// 结构体转为 JSON
+	data2, err := json.Marshal(u2)
+	if err != nil {
+		panic(err)
+	}
+	fmt.Printf("data2 = %s\n", data2)
+
+	fmt.Println("==================================")
+
+	// 获取字段
+	field1, _ := reflect.TypeOf(u2).FieldByName("Name")
+	field2 := reflect.ValueOf(u2).Type().Field(1) // Filed(i) i 第几个字段
+	field3 := reflect.ValueOf(&u2).Elem().Type().Field(2)
+	fmt.Println("field1 = ", field1)
+	fmt.Println("field2 = ", field2)
+	fmt.Println("field3 = ", field3)
+
+	// 获取Tag
+	tag1 := field1.Tag
+	tag2 := field2.Tag
+	tag3 := field3.Tag
+	fmt.Println("tag1 = ", tag1, "tag1 json = ", tag1.Get("json"))
+	fmt.Println("tag2 = ", tag2, "tag2 json = ", tag2.Get("json"))
+	fmt.Println("tag3 = ", tag3, "tag3 json = ", tag3.Get("json"))
+
+	// 获取键值对
+	labelValue := tag1.Get("json")
+	labelValue2, ok := tag2.Lookup("json")
+	fmt.Println("labelValue = ", labelValue)
+	fmt.Println("labelValue2 = ", labelValue2, "ok = ", ok)
 }
 
 type Person5 struct {
