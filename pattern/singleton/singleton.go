@@ -27,7 +27,7 @@ var (
 	once          = &sync.Once{}
 )
 
-// GetLazyInstance 懒汉式
+// GetLazyInstance 懒汉式（双重检测）
 func GetLazyInstance() *Singleton {
 	if lazySingleton == nil {
 		once.Do(func() {
