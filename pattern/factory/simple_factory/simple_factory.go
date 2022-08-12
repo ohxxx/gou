@@ -8,24 +8,24 @@ type IRuleConfigParser interface {
 	Parse(data []byte)
 }
 
-type JsonRuleConfigParser struct{}
+type jsonRuleConfigParser struct{}
 
-type YamlRuleConfigParser struct{}
+type yamlRuleConfigParser struct{}
 
-func (J JsonRuleConfigParser) Parse(data []byte) {
+func (J jsonRuleConfigParser) Parse(data []byte) {
 	panic("implement xxx")
 }
 
-func (Y YamlRuleConfigParser) Parse(data []byte) {
+func (Y yamlRuleConfigParser) Parse(data []byte) {
 	panic("implement xxx")
 }
 
 func RuleConfigParser(name string) IRuleConfigParser {
 	switch name {
 	case "json":
-		return JsonRuleConfigParser{}
+		return jsonRuleConfigParser{}
 	case "yaml":
-		return YamlRuleConfigParser{}
+		return yamlRuleConfigParser{}
 	default:
 		return nil
 	}

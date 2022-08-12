@@ -17,12 +17,12 @@ func TestRuleConfigParser(t *testing.T) {
 		{
 			name: "json",
 			args: args{t: "json"},
-			want: JsonRuleConfigParser{},
+			want: jsonRuleConfigParser{},
 		},
 		{
 			name: "yaml",
 			args: args{t: "yaml"},
-			want: YamlRuleConfigParser{},
+			want: yamlRuleConfigParser{},
 		},
 	}
 
